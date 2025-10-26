@@ -118,19 +118,44 @@ public class SortingList extends Application {
         // Обробка натискання кнопки за допомогою об'єкта анонімного класу,
         // реалізує інтерфейс Comparable
 
-        final boolean[] order = {true};
+        // Створюємо окремі "контейнери" для стану сортування (true = за зростанням)
+        // для КОЖНОЇ кнопки. Використовуємо масив, щоб можна було змінити
+        // значення всередині анонімного класу.
+        final boolean[] nameOrder = {true};
+        final boolean[] lastNameOrder = {true};
+        final boolean[] markOrder = {true};
+
 
         sortByNameButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                students.sort(new NameSorter(order[0]));
-                order[0] = !order[0];
+                students.sort(new NameSorter(nameOrder[0]));
+                nameOrder[0] = !nameOrder[0]; // Інвертуємо порядок для наступного натискання
             }
         });
 
-        // TODO: Обробка натискання на кнопку "Сортувати за прізвищем"
 
-        // TODO: Обробка натискання на кнопку "Сортувати за оцінкою"
+
+        // Обробка натискання на кнопку "Сортувати за прізвищем"
+        sortByLastNameButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                students.sort(new LastNameSorter(lastNameOrder[0]));
+                lastNameOrder[0] = !lastNameOrder[0]; // Інвертуємо порядок
+            }
+        });
+
+        // Обробка натискання на кнопку "Сортувати за оцінкою"
+        sortByMarkButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                students.sort(new MarkSorter(markOrder[0]));
+                markOrder[0] = !markOrder[0]; // Інвертуємо порядок
+            }
+        });
+
+
+
 
         // Створюємо горизонтальний ряд
         HBox hb = new HBox();
